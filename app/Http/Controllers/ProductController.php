@@ -28,7 +28,7 @@ class ProductController extends Controller
             'product_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
         $image_name = time().'.'.request()->product_photo->getClientOriginalExtension();
-        request()->product_photo->move(public_path('images')."\products", $image_name);
+        request()->product_photo->move(public_path('images')."/products", $image_name);
 
         $new_product = Product::create([
         	'name'		=> $request->product_name,
