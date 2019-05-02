@@ -79,6 +79,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {{--
+                                @foreach ($user->invoices() as $invoice)
+                                    <tr>
+                                        <td>{{ gmdate("Y-m-d H:i:s", $invoice->created) }}</td>
+                                        <td>{{ $invoice->total() }}</td>
+                                        <td>
+                                            <a href="/invoice/{{ $invoice->id }}">Download</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            --}}
                         </tbody>
                     </table>
 
