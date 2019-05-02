@@ -13,15 +13,18 @@
 					<h4 class="product-centered">{{ $product->name }}</h4>
 					<div class="product-image" style="background-image:url('/images/products/{{ $product->image }}');"></div>
 					<div class="product-centered">
-						<span>$ {{ $product->cost }}</span> | 
-						<span>
-							<select id="product-quantity-{{ $product->id }}">
-								@for ($x=1; $x<=10; $x++)
-									<option value="{{ $x }}">{{ $x }}</option>
-								@endfor
-							</select>
-							<button class="btn btn-primary btn-xs" onClick="addToCart({{ $product->id }});">Add to Cart</button>
-						</span>
+						<span>$ {{ $product->cost }}</span>
+						@if ($user)
+							 | 
+							<span>
+								<select id="product-quantity-{{ $product->id }}">
+									@for ($x=1; $x<=10; $x++)
+										<option value="{{ $x }}">{{ $x }}</option>
+									@endfor
+								</select>
+								<button class="btn btn-primary btn-xs" onClick="addToCart({{ $product->id }});">Add to Cart</button>
+							</span>
+						@endif
 					</div>
 				</div>
 			@endforeach

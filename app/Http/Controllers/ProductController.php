@@ -13,8 +13,9 @@ class ProductController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
     	$all_products = Product::all();
-        return view('products/index', ['all_products'=>$all_products]);
+        return view('products/index', ['all_products'=>$all_products, 'user'=>$user]);
     }
 
     public function addProduct()
@@ -58,8 +59,11 @@ class ProductController extends Controller
     public function shoppingCart(Request $request)
     {
     	$user = Auth::user();
+        if (!$user) {
+            return redirect(action('ProductController@index'));
+        }
     	$all_items = Shopping_Cart::where('user_id', $user->id)->leftJoin('products', 'products.id', 'shopping_cart.product_id')->select('shopping_cart.*', 'products.name', 'products.cost', 'products.image')->get();
-    	return view('products/shopping-cart', ['all_items'=>$all_items]);
+    	return view('products/shopping-cart', ['all_items'=>$all_items, 'user'=>$user]);
     }
 
     public function deleteFromCart(Request $request)
