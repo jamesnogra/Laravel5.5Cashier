@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Shopping_Cart;
@@ -23,12 +24,15 @@ class ProductController extends Controller
 
     public function postAddProduct(Request $request)
     {
-    	//validate and save photo
-    	request()->validate([
+        $this->validate($request, [
             'product_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
         ]);
-        $image_name = time().'.'.request()->product_photo->getClientOriginalExtension();
-        request()->product_photo->move(public_path('images')."/products", $image_name);
+        $image = $request->file('product_photo');
+        $image_name = time().'.'.$image->getClientOriginalExtension();
+        $img = Image::make($image->getRealPath());
+        $img->resize(400, 400, function ($constraint) {
+            $constraint->aspectRatio();
+        })->save(public_path('images').'/products/'.$image_name);
 
         $new_product = Product::create([
         	'name'		=> $request->product_name,
