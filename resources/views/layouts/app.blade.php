@@ -50,7 +50,10 @@
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                <a href="{{ action('ProductController@shoppingCart') }}">Shopping Cart (<span id="shopping-cart-total">{{ App\Shopping_cart::where('user_id', \Auth::user()->id)->count() }}</span>)</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
