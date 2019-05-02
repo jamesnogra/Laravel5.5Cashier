@@ -79,9 +79,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user->invoices() as $invoice)
-                                {{var_dump($invoice->total())}}
-                            @endforeach
                         </tbody>
                     </table>
 
